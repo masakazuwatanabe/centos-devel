@@ -1,0 +1,24 @@
+service:
+  rsyslog:
+    type: foreground
+    start:
+      - /usr/sbin/rsyslogd
+      - -n
+    stop_signal: SIGTERM
+    restart: always
+  cron:
+    type: foreground
+    start:
+      - /usr/sbin/crond
+      - -n
+    stop_signal: SIGTERM
+    restart: always
+stdout:
+  - /var/log/cron
+  - /var/log/messages
+start:
+  - rsyslog
+  - cron
+stop:
+  - cron
+  - rsyslog
